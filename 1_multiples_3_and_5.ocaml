@@ -7,6 +7,10 @@
 open Core.Std;;
 
 let top_range = ref 1_000;;
+let speclist = [
+  ("-d", Arg.Set_int top_range, ": top range parameter");
+];;
+let usage = "usage: " ^ Sys.argv.(0) ^ " [-d int]";;
 
 (*
 let rec print_list = function
@@ -46,10 +50,6 @@ let result n =
     (List.range 0 n)
   in list_sum filtered_list;;
 
-let speclist = [
-  ("-d", Arg.Set_int top_range, ": top range parameter");
-];;
-let usage = "usage: " ^ Sys.argv.(0) ^ " [-d int]"
 
 let () =
   Arg.parse
