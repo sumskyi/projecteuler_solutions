@@ -1,0 +1,34 @@
+(* http://software.opensuse.org/package/qvim*)
+
+(*open Core.Std;;*)
+
+(*
+let sabakka x = x ;;
+let barabakka x = x * x;;
+
+print_string (sabakka "sabakka");;
+
+let add  x = x + x;;
+let mult x = x * x;;
+
+let add_mult = Fn.compose add mult;;
+let mult_add = Fn.compose mult add;;
+
+add_mult 4;;
+mult_add 4;;
+*)
+
+(* 88888888888888888888888888888888888888888888 *)
+
+let three_or_five(n: int) =
+  n mod 3 = 0 || n mod 5 = 0
+
+let numbers = List.range 0 1_000
+
+let filtered = List.filter ~f:three_or_five numbers
+
+(*let list_sum (l: int list) : int =*)
+  (*List.fold_left (fun acc x -> acc + x) 0 l*)
+
+(*List.fold ~init:0 ~f:(fun acc x -> acc + x) filtered*)
+
