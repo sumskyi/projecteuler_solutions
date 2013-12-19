@@ -1,34 +1,48 @@
-(* http://software.opensuse.org/package/qvim*)
+#use "topfind"
+#camlp4o
+#thread
+#require "core.top"
+#require "core.syntax"
 
-(*open Core.Std;;*)
+open Core.Std;;
 
 (*
-let sabakka x = x ;;
-let barabakka x = x * x;;
-
-print_string (sabakka "sabakka");;
-
-let add  x = x + x;;
-let mult x = x * x;;
-
-let add_mult = Fn.compose add mult;;
-let mult_add = Fn.compose mult add;;
-
-add_mult 4;;
-mult_add 4;;
+let rec print_list = function
+  [] -> ()
+  | e::l -> print_int e ; print_string " " ; print_list l
+;;
 *)
 
-(* 88888888888888888888888888888888888888888888 *)
+let three_or_five(n: int) : bool = n mod 3 = 0 || n mod 5 = 0 ;;
 
-let three_or_five(n: int) =
-  n mod 3 = 0 || n mod 5 = 0
+let numbers = List.range 0 1_000;;
 
-let numbers = List.range 0 1_000
+let filtered = List.filter ~f:three_or_five numbers;;
+(*print_list filtered;;*)
 
-let filtered = List.filter ~f:three_or_five numbers
 
-(*let list_sum (l: int list) : int =*)
-  (*List.fold_left (fun acc x -> acc + x) 0 l*)
+(*
+let list_sum filtered =
+  List.fold ~init:0 ~f:(fun acc x -> acc + x) filtered;;
+*)
+let list_sum(l: int list) : int =
+  List.fold_left ~f:(fun acc x -> acc + x) ~init:0 l
+;;
 
-(*List.fold ~init:0 ~f:(fun acc x -> acc + x) filtered*)
+
+
+(*print_endline @@ string_of_int @@ list_sum filtered;;*)
+
+let print_int = Fn.compose print_endline string_of_int;;
+
+
+(* shorter version: *)
+let result n =
+  let filtered_list =
+    List.filter
+    ~f:(fun n -> n mod 3 = 0 || n mod 5 = 0)
+    (List.range 0 n)
+  in list_sum filtered_list;;
+
+print_int @@ result 1_000;;
 
