@@ -6,6 +6,8 @@
 
 open Core.Std;;
 
+let top_range = ref 1_000;;
+
 (*
 let rec print_list = function
   [] -> ()
@@ -15,7 +17,7 @@ let rec print_list = function
 
 let three_or_five(n: int) : bool = n mod 3 = 0 || n mod 5 = 0 ;;
 
-let numbers = List.range 0 1_000;;
+let numbers = List.range 0 !top_range;;
 
 let filtered = List.filter ~f:three_or_five numbers;;
 (*print_list filtered;;*)
@@ -44,5 +46,17 @@ let result n =
     (List.range 0 n)
   in list_sum filtered_list;;
 
-print_int @@ result 1_000;;
+let speclist = [
+  ("-d", Arg.Set_int top_range, ": top range parameter");
+];;
+let usage = "usage: " ^ Sys.argv.(0) ^ " [-d int]"
+
+let () =
+  Arg.parse
+    speclist
+    (fun x -> raise (Arg.Bad ("Bad argument : " ^ x)))
+    usage;
+
+  print_int @@ result !top_range;
+;;
 
